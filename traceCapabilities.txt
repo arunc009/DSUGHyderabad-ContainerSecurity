@@ -1,0 +1,143 @@
+arunc@arun{90}$ ./container_check.stp -DKRETACTIVE=100 -c "sudo strace -c -f /usr/sbin/httpd -DFOREGROUND"
+Missing separate debuginfos, use: debuginfo-install kernel-3.10.0-957.el7.x86_64 kmod-kvdo-6.1.1.125-5.el7.x86_64 
+starting container_check.stp. monitoring 18015
+strace: Process 18021 attached
+strace: Process 18022 attached
+strace: Process 18023 attached
+strace: Process 18025 attached
+strace: Process 18024 attached
+^Cstrace: Process 18020 detached
+strace: Process 18021 detached
+strace: Process 18022 detached
+strace: Process 18023 detached
+strace: Process 18025 detached
+strace: Process 18024 detached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 28.32    0.017532           4      4504        19 open
+ 21.88    0.013542           3      4545           read
+ 19.69    0.012189           3      4531           close
+ 17.95    0.011115          20       567           select
+  2.59    0.001602           3       568           wait4
+  1.80    0.001116           4       281           lseek
+  1.79    0.001107           3       434           mmap
+  1.79    0.001106           3       393           mprotect
+  0.54    0.000335           3       118           munmap
+  0.50    0.000311           1       249           fstat
+  0.42    0.000258           4        63           poll
+  0.27    0.000170           2        71           fcntl
+  0.24    0.000147           6        26           write
+  0.24    0.000146           2        77        39 stat
+  0.24    0.000146           4        36           recvfrom
+  0.16    0.000100           6        18           getsockopt
+  0.16    0.000099           4        24           setsockopt
+  0.13    0.000081           3        24         6 connect
+  0.12    0.000073           3        25           socket
+  0.11    0.000070           7        10           semop
+  0.11    0.000068          14         5           setuid
+  0.11    0.000066           4        18           umask
+  0.10    0.000063           7         9           sendmsg
+  0.08    0.000049          10         5           setgroups
+  0.07    0.000043           4        11           pipe
+  0.06    0.000037           7         5           epoll_create1
+  0.05    0.000031           2        17           geteuid
+  0.05    0.000030           2        16           semctl
+  0.05    0.000028           6         5           epoll_ctl
+  0.04    0.000026          13         2         2 statfs
+  0.04    0.000023           1        19           brk
+  0.04    0.000023           1        35           rt_sigaction
+  0.04    0.000023          12         2           unlink
+  0.04    0.000022           4         6           bind
+  0.03    0.000016           2         7           semget
+  0.02    0.000014           3         5           clone
+  0.02    0.000013           3         5           setgid
+  0.02    0.000012           1        15           recvmsg
+  0.02    0.000011           1         8           getdents
+  0.01    0.000006           6         1           shmget
+  0.01    0.000006           6         1           shmat
+  0.01    0.000006           1         5           sendto
+  0.01    0.000006           1        11           getsockname
+  0.01    0.000005           1         5         1 access
+  0.01    0.000005           3         2           shmctl
+  0.01    0.000005           5         1           listen
+  0.01    0.000004           4         1           set_tid_address
+  0.01    0.000004           1         4           openat
+  0.00    0.000003           3         1           rt_sigprocmask
+  0.00    0.000003           2         2           dup3
+  0.00    0.000002           2         1           getrlimit
+  0.00    0.000002           2         1           getuid
+  0.00    0.000002           2         1           getgid
+  0.00    0.000002           2         1           arch_prctl
+  0.00    0.000002           0         6           set_robust_list
+  0.00    0.000000           0         1           execve
+  0.00    0.000000           0         2           uname
+  0.00    0.000000           0         3           futex
+------ ----------- ----------- --------- --------- ----------------
+100.00    0.061906                 16809        67 total
+
+
+capabilities used by executables
+      executable:      prob capability
+
+           httpd:           cap_setgid
+           httpd:           cap_setuid
+           httpd: cap_net_bind_service
+
+          strace:       cap_sys_ptrace
+
+            sudo:     cap_dac_override
+            sudo:           cap_setgid
+            sudo:           cap_setuid
+            sudo:        cap_net_admin
+            sudo:     cap_sys_resource
+            sudo:      cap_audit_write
+
+
+
+capabilities used by syscalls
+      executable,              syscall (       capability ) :            count
+           httpd,               setgid (       cap_setgid ) :                5
+           httpd,               setuid (       cap_setuid ) :                5
+           httpd,            setgroups (       cap_setgid ) :                5
+           httpd,                 bind ( cap_net_bind_service ) :                1
+          strace,               ptrace (   cap_sys_ptrace ) :                2
+            sudo,            setresgid (       cap_setgid ) :                6
+            sudo,            setresuid (       cap_setuid ) :                9
+            sudo,               setuid (       cap_setuid ) :                1
+            sudo,               setgid (       cap_setgid ) :                1
+            sudo,            setgroups (       cap_setgid ) :                5
+            sudo,            setrlimit ( cap_sys_resource ) :                2
+            sudo,               sendto (  cap_audit_write ) :                6
+            sudo,               execve ( cap_dac_override ) :                1
+            sudo,           setsockopt (    cap_net_admin ) :                2
+
+
+forbidden syscalls
+      executable,              syscall:            count
+
+
+failed syscalls
+      executable,              syscall =            errno:            count
+           httpd,                 stat =           ENOENT:               39
+           httpd,              connect =           ENOENT:                6
+           httpd,              accept4 =                 :                5
+           httpd,                 open =           ENOENT:               19
+           httpd,               access =           ENOENT:                1
+           httpd,               statfs =           ENOENT:                2
+           httpd,               select =                 :                1
+          stapio,                      =            EINTR:                1
+          stapio,               execve =           ENOENT:                2
+          stapio,        rt_sigsuspend =                 :                1
+          strace,               access =           ENOENT:                1
+          strace,               ptrace =            ESRCH:                1
+            sudo,                 stat =           ENOENT:               24
+            sudo,              recvmsg =           EAGAIN:                3
+            sudo,                ioctl =           ENOTTY:                2
+            sudo,                      =            EINTR:                2
+            sudo,                 open =           ENOENT:               99
+            sudo,               access =           ENOENT:                4
+            sudo,              connect =           ENOENT:                6
+            sudo,               statfs =           ENOENT:                2
+            sudo,           getsockopt =      ENOPROTOOPT:                1
+            sudo,                 read =           EAGAIN:                2
+            sudo,                 poll =                 :                2
