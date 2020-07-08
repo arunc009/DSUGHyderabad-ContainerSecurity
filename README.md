@@ -1,8 +1,8 @@
-# DSUGHyderabad-ContainerSecurity
+# DevSecOpsDays-Pittsburg
 A brief hands on demonstration on cool kernel features which can be leveraged to harden containers. 
 
 
-# Hands On Introduction to Container Security
+# Are we building just containers or secure containers?
 
 ## Linux Capabilities
 
